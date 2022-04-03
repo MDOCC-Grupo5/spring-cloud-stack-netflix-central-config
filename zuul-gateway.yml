@@ -1,0 +1,42 @@
+server:
+  port: 9090
+
+spring:
+  devtools:
+    livereload:
+      enabled: false
+  autoconfigure:
+    exclude: ${spring.autoconfigure.sac}, ${spring.autoconfigure.mwsas}
+    sac: org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
+    mwsas: org.springframework.boot.actuate.autoconfigure.security.servlet.ManagementWebSecurityAutoConfiguration
+
+management:
+  endpoints:
+    migrate-legacy-ids: true
+
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: true
+    #registry-fetch-interval-seconds: 60
+    #euraka-service-url-poll-interval-seconds: 60
+    service-url:
+      default-zone: ${EUREKA_SERVER_URL:http://localhost:8761/eureka}
+  instance:
+    prefer-ip-address: true
+    hostname: localhost
+    metadata-map:
+      instance-id: ${vcap.application.instance_id:${spring.application.name}:${spring.application.instance_id:${random.value}}}
+
+zuul:
+  sensitive-headers: Cookie,Set-Cookie
+  routes:
+    oauthserver:
+      service-id: oauth-server
+      path: /api/security/**
+    configs:
+      service-id: service-config
+      path: /api/configs/**
+    users:
+      service-id: service-user
+      path: /api/users/**

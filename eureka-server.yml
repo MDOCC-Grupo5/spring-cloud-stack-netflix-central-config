@@ -1,0 +1,29 @@
+server:
+  port: 8761
+
+spring:
+  devtools:
+    livereload:
+      enabled: false
+
+eureka:
+  environment: development
+  client:
+    region: default
+    register-with-eureka: false
+    fetch-registry: false
+    service-url:
+      default-zone: ${EUREKA_SERVER_URL:http://localhost:8761/eureka}
+  instance:
+    prefer-ip-address: true
+    hostname: localhost
+    registry:
+      default-open-for-traffic-count: 0
+  server:
+    enable-self-preservation: false #true
+    expected-client-renewal-interval-seconds: 3 #30
+    lease-expiration-duration-in-seconds: 2 #90
+    wait-time-in-ms-when-sync-empty: 0
+    #eviction-interval-timer-in-ms: 60
+    #renewal-percent-threshold: 0.85
+    #renewal-threshold-update-interval-ms: 900000
