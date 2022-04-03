@@ -34,9 +34,9 @@ zuul:
     oauthserver:
       service-id: oauth-server
       path: /api/security/**
-    configs:
-      service-id: service-config
-      path: /api/configs/**
+    invoices:
+      service-id: domain-invoice-service
+      path: /api/invoices/**
     users:
-      service-id: service-user
+      service-id: domain-user-service
       path: /api/users/**
